@@ -33,6 +33,17 @@
   [n]
   (epoch2time n 1000 0))
 
+(defn mozilla
+  "Mozilla time is the number of microseconds since the Unix epoch."
+  [n]
+  (epoch2time n 1000000 0))
+
+(defn symbian
+  "Symbian time is the number of microseconds since the year 0, which
+  is 62,167,219,200 seconds before the Unix epoch."
+  [n]
+  (epoch2time n 1000000 -62167219200))
+
 (defn unix
   "Unix time is the number of seconds since 1970-01-01."
   [n]
