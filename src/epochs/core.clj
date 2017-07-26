@@ -28,6 +28,11 @@
   [n]
   (epoch2time n 1 978307200))
 
+(defn java
+  "Java time is the number of milliseconds since the Unix epoch."
+  [n]
+  (epoch2time n 1000 0))
+
 (defn unix
   "Unix time is the number of seconds since 1970-01-01."
   [n]
