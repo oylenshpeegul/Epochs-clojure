@@ -34,6 +34,24 @@
     (is (= (str (java-time/format (java 1234567890123)))
            (str "2009-02-13T23:31:30.123Z")))))
 
+(deftest mozilla-test
+  (testing "mozilla"
+    (is (= (str (java-time/format (mozilla 1234567890000000)))
+           (str "2009-02-13T23:31:30Z")))
+    (is (= (str (java-time/format (mozilla 1234567890123000)))
+           (str "2009-02-13T23:31:30.123Z")))
+    (is (= (str (java-time/format (mozilla 1234567890123456)))
+           (str "2009-02-13T23:31:30.123Z")))))
+
+(deftest symbian-test
+  (testing "symbian"
+    (is (= (str (java-time/format (symbian 63401787090000000)))
+           (str "2009-02-13T23:31:30Z")))
+    (is (= (str (java-time/format (symbian 63401787090123000)))
+           (str "2009-02-13T23:31:30.123Z")))
+    (is (= (str (java-time/format (symbian 63401787090123456)))
+           (str "2009-02-13T23:31:30.123Z")))))
+
 (deftest unix-test
   (testing "unix"
     (is (= (str (java-time/format (unix 1234567890)))
