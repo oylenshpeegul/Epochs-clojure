@@ -27,6 +27,13 @@
     (is (= (str (java-time/format (cocoa 256260690)))
            (str "2009-02-13T23:31:30Z")))))
 
+(deftest java-test
+  (testing "java"
+    (is (= (str (java-time/format (java 1234567890000)))
+           (str "2009-02-13T23:31:30Z")))
+    (is (= (str (java-time/format (java 1234567890123)))
+           (str "2009-02-13T23:31:30.123Z")))))
+
 (deftest unix-test
   (testing "unix"
     (is (= (str (java-time/format (unix 1234567890)))
