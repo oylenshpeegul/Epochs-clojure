@@ -8,8 +8,25 @@
   (-> n
       (/ d)
       (+ s)
-      (* 1000) ;; Java time is in milliseconds, not seconds.
+      (* 1000) ;; Java time is in milliseconds.
       (java-time/instant)))
+
+(defn apfs
+  "APFS time is in nanoseconds since the Unix epoch."
+  [n]
+  (epoch2time n 1000000000 0))
+
+(defn chrome
+  "Chrome time is the number of microseconds since 1601-01-01, which is
+  11,644,473,600 seconds before the Unix epoch."
+  [n]
+  (epoch2time n 1000000 -11644473600))
+
+(defn cocoa
+  "Cocoa time is the number of seconds since 2001-01-01, which
+  is 978,307,200 seconds after the Unix epoch."
+  [n]
+  (epoch2time n 1 978307200))
 
 (defn unix
   "Unix time is the number of seconds since 1970-01-01."
