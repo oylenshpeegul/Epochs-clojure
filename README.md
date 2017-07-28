@@ -2,7 +2,7 @@
 
 Convert various epoch times to java.time.Instant times in Clojure.
 
-```bash
+```
 $ rlwrap lein repl
 user=> (use 'epochs.core)
 nil
