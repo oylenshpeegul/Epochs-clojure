@@ -1,15 +1,14 @@
-(ns epochs.core
-  (:require [java-time]))
+(ns epochs.core)
   
 (defn epoch2time
   "Given a number n, a dividend d, and a shift s, do the divide and
-  shift and return the result as a java-time/instant."
+  shift and return the result as a java.time.Instant."
   [n d s]
   (-> n
       (/ d)
       (+ s)
-      (* 1000) ;; Java time is in milliseconds.
-      (java-time/instant)))
+      (* 1000)
+      (java.time.Instant/ofEpochMilli)))
 
 (defn apfs
   "APFS time is in nanoseconds since the Unix epoch."
@@ -27,6 +26,23 @@
   is 978,307,200 seconds after the Unix epoch."
   [n]
   (epoch2time n 1 978307200))
+
+(defn google-calendar
+  "Google Calendar time seems to count 32-day months from the day
+  before the Unix epoch. @noppers worked out how to do this."
+  [n]
+  (def seconds-per-day (* 24 60 60))
+  (def total-days (quot n seconds-per-day))
+  (def total-seconds (rem n seconds-per-day))
+  (def google-months (quot total-days 32))
+  (def google-days (rem total-days 32))
+  (def ldt (java.time.LocalDateTime/ofEpochSecond
+            (- seconds-per-day) 0 java.time.ZoneOffset/UTC))
+  (-> ldt
+      (.plusDays google-days)
+      (.plusMonths google-months)
+      (.toInstant java.time.ZoneOffset/UTC)
+      (.plusSeconds total-seconds)))
 
 (defn java
   "Java time is the number of milliseconds since the Unix epoch."
