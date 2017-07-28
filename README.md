@@ -2,6 +2,15 @@
 
 Convert various epoch times to java.time.Instant times in Clojure.
 
+```bash
+$ rlwrap lein repl
+user=> (use 'epochs.core)
+nil
+user=> (unix 1234567890)
+#object[java.time.Instant 0x663f76b "2009-02-13T23:31:30Z"]
+user=> (google-calendar 1234567890)
+#object[java.time.Instant 0xf53c7ad "2007-03-16T23:31:30Z"]
+```
 
 ## Contributors
 
