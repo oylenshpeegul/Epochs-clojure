@@ -1,6 +1,6 @@
 # Epochs-clojure
 
-Convert various epoch times to [java-time/instant](http://dm3.github.io/clojure.java-time/java-time.html#var-instant) times in Clojure.
+Convert various epoch times to java.time.Instant times in Clojure.
 
 
 ## Contributors
