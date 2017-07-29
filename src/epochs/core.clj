@@ -27,17 +27,15 @@
   [n]
   (epoch2time n 1 978307200))
 
-(defn quot-rem
-  [n d]
-  [(quot n d) (rem n d)])
-
 (defn google-calendar
   "Google Calendar time seems to count 32-day months from the day
   before the Unix epoch. @noppers worked out how to do this."
   [n]
   (let [seconds-per-day (* 24 60 60)
-        [total-days total-seconds] (quot-rem n seconds-per-day)
-        [google-months google-days] (quot-rem total-days 32)
+        total-days (quot n seconds-per-day)
+        total-seconds (rem n seconds-per-day)
+        google-months (quot total-days 32)
+        google-days (rem total-days 32)
         ldt (java.time.LocalDateTime/ofEpochSecond
              (- seconds-per-day) 0 java.time.ZoneOffset/UTC)]
     (-> ldt
