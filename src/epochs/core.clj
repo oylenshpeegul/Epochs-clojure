@@ -32,17 +32,16 @@
   before the Unix epoch. @noppers worked out how to do this."
   [n]
   (let [seconds-per-day (* 24 60 60)
-        total-days (quot n seconds-per-day)
-        total-seconds (rem n seconds-per-day)
-        google-months (quot total-days 32)
-        google-days (rem total-days 32)
-        ldt (java.time.LocalDateTime/ofEpochSecond
-             (- seconds-per-day) 0 java.time.ZoneOffset/UTC)]
-    (-> ldt
-        (.plusDays google-days)
-        (.plusMonths google-months)
-        (.toInstant java.time.ZoneOffset/UTC)
-        (.plusSeconds total-seconds))))
+        utc (java.time.ZoneOffset/UTC)
+        n-days (quot n seconds-per-day)
+        n-seconds (rem n seconds-per-day)
+        g-months (quot n-days 32)
+        g-days (rem n-days 32)]
+    (-> (java.time.LocalDateTime/ofEpochSecond (- seconds-per-day) 0 utc)
+        (.plusDays g-days)
+        (.plusMonths g-months)
+        (.toInstant utc)
+        (.plusSeconds n-seconds))))
 
 (defn java
   "Java time is the number of milliseconds since the Unix epoch."
